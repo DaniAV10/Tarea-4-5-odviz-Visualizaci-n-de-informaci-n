@@ -1,0 +1,98 @@
+{# Gráfica de Barras: Nivel de Estrés - ODViz #}
+
+{% set margin = obj("top", 40, "right", 30, "bottom", 60, "left", 70) %}
+{% set width = 600 - margin.left - margin.right %}
+{% set height = 450 - margin.top - margin.bottom %}
+
+<svg width="{{width + margin.left + margin.right}}"
+     height="{{height + margin.top + margin.bottom}}"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:v="https://odviz.org/1.0/">
+
+  <metadata>
+    <v:table name="stress_level"
+             description="Distribution of self-reported stress levels among 374 participants"
+             visualization="chart"
+             columns="id,stress_level,number_of_people"
+             primaryKey="id">
+    {% for b in bars %}
+      <v:row id="stress-{{loop.index}}" hrefs="bar-{{loop.index}}">
+        {{loop.index}},{{b.label}},{{b.count}}
+      </v:row>
+    {% endfor %}
+    </v:table>
+  </metadata>
+
+  <style>
+    .tick-label { font-family: sans-serif; font-size: 11px; fill: #333; }
+    .axis-line, .tick-line { stroke: #666; }
+    .title { font-family: sans-serif; font-size: 14px; font-weight: bold; fill: #222; }
+    .axis-label { font-family: sans-serif; font-size: 12px; fill: #333; }
+    .gridline { stroke: #cccccc; stroke-width: 1; }
+  </style>
+
+  <g transform="translate({{margin.left}},{{margin.top}})">
+
+    {# Fondo gris estilo ggplot2 #}
+    <rect x="0" y="0" width="{{width}}" height="{{height}}" fill="#EBEBEB"/>
+
+    {# Título #}
+    <text class="title" text-anchor="middle"
+          x="{{width / 2}}" y="-15">
+      Distribución del nivel de estrés
+    </text>
+
+    {# Escalas #}
+    {% set labels = map(bars, "label") %}
+    {% set x = scaleBand()
+          | range(0, width)
+          | domain(labels)
+          | padding(0.15) %}
+
+    {% set maxCount = max(map(bars, "count")) %}
+    {% set y = scaleLinear()
+          | domain(0, maxCount * 1.1)
+          | range(height, 0) %}
+
+    {# Líneas de cuadrícula horizontales #}
+    {% set gridVals = [0, 20, 40, 60] %}
+    {% for v in gridVals %}
+      <line class="gridline"
+            x1="0" x2="{{width}}"
+            y1="{{ scale(y, v) }}" y2="{{ scale(y, v) }}"/>
+    {% endfor %}
+
+    {# Barras con id/href para ODViz #}
+    {% for b in bars %}
+      <rect id="bar-{{loop.index}}" href="#stress-{{loop.index}}"
+            x="{{ scale(x, b.label) }}"
+            y="{{ scale(y, b.count) }}"
+            width="{{ bandwidth(x) }}"
+            height="{{ height - scale(y, b.count) }}"
+            fill="tomato"/>
+    {% endfor %}
+
+    {# Eje X con todas las etiquetas individuales #}
+    <g transform="translate(0,{{height}})">
+      {{ call(axisBottom(x) | tickValues(labels)) }}
+    </g>
+
+    {# Eje Y #}
+    <g> {{ call(axisLeft(y) | tickCount(5)) }} </g>
+
+    {# Etiqueta eje X #}
+    <text class="axis-label" text-anchor="middle"
+          x="{{width / 2}}" y="{{height + 45}}">
+      Nivel de estrés
+    </text>
+
+    {# Etiqueta eje Y #}
+    <text class="axis-label" text-anchor="middle"
+          transform="rotate(-90)"
+          x="{{-height / 2}}" y="-50">
+      Cantidad de personas
+    </text>
+
+  </g>
+</svg>

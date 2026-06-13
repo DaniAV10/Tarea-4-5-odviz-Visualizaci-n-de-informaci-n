@@ -1,0 +1,31 @@
+{
+  "bins": [
+    {
+      "center": 6.0,
+      "count": 74
+    },
+    {
+      "center": 6.5,
+      "count": 73
+    },
+    {
+      "center": 7.0,
+      "count": 63
+    },
+    {
+      "center": 7.5,
+      "count": 58
+    },
+    {
+      "center": 8.0,
+      "count": 74
+    },
+    {
+      "center": 8.5,
+      "count": 32
+    }
+  ],
+  "xmin": 5.75,
+  "xmax": 8.75,
+  "binwidth": 0.5
+}
