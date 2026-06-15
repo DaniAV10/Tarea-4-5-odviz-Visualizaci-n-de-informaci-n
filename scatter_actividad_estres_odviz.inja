@@ -1,0 +1,40 @@
+{# Scatterplot: Actividad Fisica vs Nivel de Estres #}
+{% set margin = obj("top", 40, "right", 30, "bottom", 60, "left", 70) %}
+{% set width = 600 - margin.left - margin.right %}
+{% set height = 450 - margin.top - margin.bottom %}
+
+<svg width="{{width + margin.left + margin.right}}" height="{{height + margin.top + margin.bottom}}" 
+     xmlns="http://www.w3.org/2000/svg" xmlns:v="https://odviz.org/1.0/">
+
+  <metadata>
+    <v:table visualization="chart" columns="id,activity,stress" primaryKey="id">
+      {% for p in points %}
+        <v:row id="row-{{ loop.index0 }}">{{ loop.index0 }},{{ p.activity }},{{ p.stress }}</v:row>
+      {% endfor %}
+    </v:table>
+  </metadata>
+
+  <style>
+    .gridline { stroke: #cccccc; stroke-width: 1; }
+    .title { font-family: sans-serif; font-size: 14px; font-weight: bold; fill: #222; }
+  </style>
+
+  <g transform="translate({{margin.left}},{{margin.top}})">
+    <rect x="0" y="0" width="{{width}}" height="{{height}}" fill="#EBEBEB"/>
+    <text class="title" text-anchor="middle" x="{{width / 2}}" y="-15">Actividad vs Estrés</text>
+    
+    {% set x = scaleLinear() | domain(xmin, xmax) | range(0, width) %}
+    {% set y = scaleLinear() | domain(ymin, ymax) | range(height, 0) %}
+    
+    {% for v in [0, 2, 4, 6, 8, 10] %}
+      <line class="gridline" x1="0" x2="{{width}}" y1="{{ scale(y, v) }}" y2="{{ scale(y, v) }}"/>
+    {% endfor %}
+    
+    {% for p in points %}
+      <circle id="c-{{ loop.index0 }}" href="#row-{{ loop.index0 }}" 
+              cx="{{ scale(x, p.activity) }}" 
+              cy="{{ scale(y, p.stress) }}" 
+              r="6" fill="#e74c3c" />
+    {% endfor %}
+  </g>
+</svg>

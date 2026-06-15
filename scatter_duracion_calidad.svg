@@ -1,0 +1,39 @@
+<svg width="600" height="450" xmlns="http://www.w3.org/2000/svg" xmlns:v="https://odviz.org/1.0/">
+  <metadata>
+    <v:table visualization="chart" columns="id,duration,quality" primaryKey="id">
+        <v:row id="row-0">0,6.1,6</v:row>
+        <v:row id="row-1">1,6.2,6</v:row>
+        <v:row id="row-2">2,6.2,6</v:row>
+        <v:row id="row-3">3,5.9,4</v:row>
+        <v:row id="row-4">4,5.9,4</v:row>
+        <v:row id="row-5">5,5.9,4</v:row>
+        <v:row id="row-6">6,6.3,6</v:row>
+        <v:row id="row-7">7,7.8,7</v:row>
+        <v:row id="row-8">8,7.8,7</v:row>
+        <v:row id="row-9">9,7.8,7</v:row>
+    </v:table>
+  </metadata>
+
+  <style>
+    .gridline { stroke: #cccccc; stroke-width: 1; }
+    .title { font-family: sans-serif; font-size: 14px; font-weight: bold; fill: #222; }
+  </style>
+
+  <g transform="translate(60,40)">
+    <rect x="0" y="0" width="500" height="350" fill="#EBEBEB" />
+    <text class="title" x="250" y="-15" text-anchor="middle">Duración vs. Calidad de Sueño</text>
+    
+    <line class="gridline" x1="0" x2="500" y1="175" y2="175" />
+    
+    <circle id="c-0" href="#row-0" cx="137" cy="210" r="6" fill="#3498db" />
+    <circle id="c-1" href="#row-1" cx="150" cy="210" r="6" fill="#3498db" />
+    <circle id="c-2" href="#row-2" cx="150" cy="210" r="6" fill="#3498db" />
+    <circle id="c-3" href="#row-3" cx="112" cy="280" r="6" fill="#3498db" />
+    <circle id="c-4" href="#row-4" cx="112" cy="280" r="6" fill="#3498db" />
+    <circle id="c-5" href="#row-5" cx="112" cy="280" r="6" fill="#3498db" />
+    <circle id="c-6" href="#row-6" cx="162" cy="210" r="6" fill="#3498db" />
+    <circle id="c-7" href="#row-7" cx="350" cy="175" r="6" fill="#3498db" />
+    <circle id="c-8" href="#row-8" cx="350" cy="175" r="6" fill="#3498db" />
+    <circle id="c-9" href="#row-9" cx="350" cy="175" r="6" fill="#3498db" />
+  </g>
+</svg>

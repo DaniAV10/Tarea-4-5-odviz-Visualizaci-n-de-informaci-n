@@ -1,0 +1,37 @@
+{# Burbuja Multidimensional #}
+{% set margin = obj("top", 40, "right", 30, "bottom", 60, "left", 70) %}
+{% set width = 600 - margin.left - margin.right %}
+{% set height = 450 - margin.top - margin.bottom %}
+
+<svg width="{{width + margin.left + margin.right}}" height="{{height + margin.top + margin.bottom}}" 
+     xmlns="http://www.w3.org/2000/svg" xmlns:v="https://odviz.org/1.0/">
+
+  <metadata>
+    <v:table visualization="chart" columns="id,duration,activity,age,stress,quality" primaryKey="id">
+      {% for p in points %}
+        <v:row id="row-{{ loop.index0 }}">{{ loop.index0 }},{{ p.duration }},{{ p.activity }},{{ p.age }},{{ p.stress }},{{ p.quality }}</v:row>
+      {% endfor %}
+    </v:table>
+  </metadata>
+
+  <style>
+    .gridline { stroke: #cccccc; stroke-width: 1; }
+    .title { font-family: sans-serif; font-size: 14px; font-weight: bold; fill: #222; }
+  </style>
+
+  <g transform="translate({{margin.left}},{{margin.top}})">
+    <rect x="0" y="0" width="{{width}}" height="{{height}}" fill="#EBEBEB"/>
+    <text class="title" text-anchor="middle" x="{{width / 2}}" y="-15">Análisis Multidimensional</text>
+    
+    {% set x = scaleLinear() | domain(xmin, xmax) | range(0, width) %}
+    {% set y = scaleLinear() | domain(ymin, ymax) | range(height, 0) %}
+    
+    {% for p in points %}
+      <circle id="b-{{ loop.index0 }}" href="#row-{{ loop.index0 }}" 
+              cx="{{ scale(x, p.duration) }}" 
+              cy="{{ scale(y, p.activity) }}" 
+              r="{{ p.age - 15 }}" 
+              fill="#9b59b6" opacity="0.7" />
+    {% endfor %}
+  </g>
+</svg>
