@@ -1,0 +1,18 @@
+{
+  "points": [
+    {"activity": 42, "stress": 6},
+    {"activity": 60, "stress": 8},
+    {"activity": 60, "stress": 8},
+    {"activity": 30, "stress": 8},
+    {"activity": 30, "stress": 8},
+    {"activity": 30, "stress": 8},
+    {"activity": 40, "stress": 7},
+    {"activity": 75, "stress": 6},
+    {"activity": 75, "stress": 6},
+    {"activity": 75, "stress": 6}
+  ],
+  "xmin": 0,
+  "xmax": 100,
+  "ymin": 0,
+  "ymax": 10
+}

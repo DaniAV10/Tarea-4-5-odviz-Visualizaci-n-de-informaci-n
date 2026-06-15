@@ -1,0 +1,18 @@
+{
+  "points": [
+    {"duration": 6.1, "quality": 6},
+    {"duration": 6.2, "quality": 6},
+    {"duration": 6.2, "quality": 6},
+    {"duration": 5.9, "quality": 4},
+    {"duration": 5.9, "quality": 4},
+    {"duration": 5.9, "quality": 4},
+    {"duration": 6.3, "quality": 6},
+    {"duration": 7.8, "quality": 7},
+    {"duration": 7.8, "quality": 7},
+    {"duration": 7.8, "quality": 7}
+  ],
+  "xmin": 5.0,
+  "xmax": 9.0,
+  "ymin": 0,
+  "ymax": 10
+}
